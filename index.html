@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Old Town Hall Associates | Commercial Real Estate in Delaware</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #1a1a1a;
+            --white: #ffffff;
+            --gray-100: #f7f7f7;
+            --gray-200: #e5e5e5;
+            --gray-400: #9ca3af;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+            --accent: #2a7d6e;
+            --accent-light: #e8f4f2;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            font-weight: 400;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .section-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            transition: background 0.3s, padding 0.3s;
+        }
+
+        header.scrolled {
+            background: var(--white);
+            padding: 1rem 4rem;
+            box-shadow: 0 1px 0 var(--gray-200);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo {
+            height: 36px;
+            transition: filter 0.3s;
+        }
+
+        .logo-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--white);
+            transition: color 0.3s;
+        }
+
+        header.scrolled .logo-text {
+            color: var(--black);
+        }
+
+        header:not(.scrolled) .logo {
+            filter: invert(1) brightness(2);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        header.scrolled .nav-links a {
+            color: var(--gray-800);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-phone {
+            font-weight: 600;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('assets/hero.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.55) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: var(--white);
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .hero-tagline {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            font-weight: 300;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border: 1px solid var(--white);
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .hero-cta:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--white);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 40px;
+            background: var(--white);
+            margin: 1rem auto 0;
+            opacity: 0.5;
+        }
+
+        /* About Section */
+        .about {
+            padding: 8rem 4rem;
+            background: var(--white);
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-size: clamp(2rem, 3vw, 3rem);
+            margin-bottom: 1.5rem;
+            color: var(--black);
+        }
+
+        .about-content p {
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature {
+            padding: 2rem;
+            background: var(--gray-100);
+        }
+
+        .feature h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--black);
+            margin-bottom: 0.75rem;
+        }
+
+        .feature p {
+            font-size: 0.95rem;
+            color: var(--gray-600);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Stats Section - Placeholder for user's stats */
+        .stats {
+            padding: 5rem 4rem;
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        /* Properties Section */
+        .properties {
+            padding: 8rem 4rem;
+            background: var(--gray-100);
+        }
+
+        .properties-header {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+
+        .properties-header h2 {
+            font-size: clamp(2rem, 3vw, 3rem);
+            color: var(--black);
+        }
+
+        .property-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .property-card {
+            background: var(--white);
+            overflow: hidden;
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+
+        .property-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .property-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+
+        .property-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+
+        .property-card:hover .property-image {
+            transform: scale(1.05);
+        }
+
+        .property-content {
+            padding: 2rem;
+        }
+
+        .property-location {
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .property-content h3 {
+            font-size: 1.5rem;
+            color: var(--black);
+            margin-bottom: 1rem;
+        }
+
+        .property-details {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .property-broker {
+            font-size: 0.85rem;
+            color: var(--gray-400);
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+            margin-bottom: 1.5rem;
+        }
+
+        .property-broker strong {
+            color: var(--gray-600);
+        }
+
+        .property-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .property-link {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--black);
+            padding-bottom: 0.25rem;
+            border-bottom: 1px solid var(--black);
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        .property-link:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Affiliates Section */
+        .affiliates {
+            padding: 8rem 4rem;
+            background: var(--white);
+        }
+
+        .affiliates-header {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+
+        .affiliates-header h2 {
+            font-size: clamp(2rem, 3vw, 3rem);
+            color: var(--black);
+        }
+
+        .affiliate-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .affiliate-card {
+            background: var(--gray-100);
+            overflow: hidden;
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+
+        .affiliate-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .affiliate-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+
+        .affiliate-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+
+        .affiliate-card:hover .affiliate-image {
+            transform: scale(1.05);
+        }
+
+        .othcc-card {
+            background: var(--black);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .othcc-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .othcc-services {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .affiliate-content {
+            padding: 1.5rem 2rem;
+            background: var(--white);
+        }
+
+        .affiliate-content h3 {
+            font-size: 1.25rem;
+            color: var(--black);
+            margin-bottom: 0.75rem;
+        }
+
+        .affiliate-content p {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .affiliate-link {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--black);
+            padding-bottom: 0.25rem;
+            border-bottom: 1px solid var(--black);
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        .affiliate-link:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        @media (max-width: 1024px) {
+            .affiliate-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 8rem 4rem;
+            background: var(--white);
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-container h2 {
+            font-size: clamp(2rem, 3vw, 3rem);
+            color: var(--black);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-container > p {
+            color: var(--gray-600);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-phone {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--black);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 1rem;
+            transition: color 0.3s;
+        }
+
+        .contact-phone:hover {
+            color: var(--accent);
+        }
+
+        .contact-address {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        .contact-divider {
+            width: 60px;
+            height: 1px;
+            background: var(--gray-200);
+            margin: 3rem auto;
+        }
+
+        .sister-firm {
+            font-size: 0.9rem;
+            color: var(--gray-400);
+        }
+
+        .sister-firm strong {
+            color: var(--gray-600);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 4rem;
+            background: var(--gray-100);
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            color: var(--gray-400);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .property-grid {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            header {
+                padding: 1.25rem 2rem;
+            }
+
+            header.scrolled {
+                padding: 1rem 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                min-height: 600px;
+            }
+
+            .about, .properties, .contact {
+                padding: 5rem 2rem;
+            }
+
+            .stats {
+                padding: 4rem 2rem;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <nav>
+            <a href="#" class="logo-link">
+                <span class="logo-text">Old Town Hall Associates</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#properties">Properties</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="tel:302-998-0100" class="nav-phone">302.998.0100</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <p class="section-label">Delaware Commercial Real Estate</p>
+            <h1>Serving Delaware Businesses Since 1980</h1>
+            <p class="hero-tagline">Professional office space and hands-on property management across New Castle, Kent, and Sussex counties.</p>
+            <a href="#properties" class="hero-cta">View Properties</a>
+        </div>
+        <div class="scroll-indicator">Scroll</div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-content">
+                <p class="section-label">About Us</p>
+                <h2>Family-Owned. Locally Managed. Tenant-Focused.</h2>
+                <p>Old Town Hall Associates has owned and managed commercial real estate in Delaware since 1980. We're not a national REIT or an absentee landlord—our team is based in Wilmington, and we manage every property ourselves.</p>
+                <p>That means faster responses, direct relationships, and landlords who actually know your business.</p>
+            </div>
+            <div class="about-features">
+                <div class="feature">
+                    <h4>In-House Management</h4>
+                    <p>Direct access to our property management team. No call centers, no runaround.</p>
+                </div>
+                <div class="feature">
+                    <h4>Prime Locations</h4>
+                    <p>From I-95 visibility in Newark to downtown Dover—strategic locations with excellent access.</p>
+                </div>
+                <div class="feature">
+                    <h4>Since 1980</h4>
+                    <p>Four decades of owning, operating, and reinvesting in Delaware commercial properties.</p>
+                </div>
+                <div class="feature">
+                    <h4>Tenant Focused</h4>
+                    <p>Tenants include medical, healthcare, engineering, government and growing businesses of all sizes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>45</h3>
+                <p>Years in Business</p>
+            </div>
+            <div class="stat-item">
+                <h3>16</h3>
+                <p>Properties</p>
+            </div>
+            <div class="stat-item">
+                <h3>250K+</h3>
+                <p>Square Feet</p>
+            </div>
+            <div class="stat-item">
+                <h3>50+</h3>
+                <p>Tenants</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="properties" id="properties">
+        <div class="properties-header">
+            <p class="section-label">Our Portfolio</p>
+            <h2>Featured Properties</h2>
+        </div>
+        <div class="property-grid">
+            <div class="property-card">
+                <div class="property-image-wrapper">
+                    <img src="assets/reads.jpg" alt="92 Reads Way" class="property-image">
+                </div>
+                <div class="property-content">
+                    <p class="property-location">New Castle, DE</p>
+                    <h3>92 Reads Way</h3>
+                    <p class="property-details">Office space in a campus setting with refreshed atrium and common areas. Up to 21,200 SF available. Free parking, natural light, adjacent to Wilmington Airport.</p>
+                    <p class="property-broker">Represented by <strong>Cindy Fleming</strong>, JLL</p>
+                    <div class="property-links">
+                        <a href="https://www.loopnet.com/Listing/92-Reads-Way-New-Castle-DE/34569280/" target="_blank" class="property-link">LoopNet</a>
+                        <a href="assets/92 reads way.pdf" target="_blank" class="property-link">Brochure</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="property-card">
+                <div class="property-image-wrapper">
+                    <img src="assets/commerce1.jpg" alt="100 Commerce Drive" class="property-image">
+                </div>
+                <div class="property-content">
+                    <p class="property-location">Newark, DE</p>
+                    <h3>100 Commerce Drive</h3>
+                    <p class="property-details">Class A 3-story office at Christiana Corporate Center. 11,086 SF available. Glass rooftop mezzanine, 9' ceilings, 300 parking spaces. Visible from I-95.</p>
+                    <p class="property-broker">Represented by <strong>John Kaczowka</strong>, CBRE</p>
+                    <div class="property-links">
+                        <a href="https://www.loopnet.com/Listing/100-Commerce-Dr-Newark-DE/3953005/" target="_blank" class="property-link">LoopNet</a>
+                        <a href="assets/100 commerce.pdf" target="_blank" class="property-link">Brochure</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="property-card">
+                <div class="property-image-wrapper">
+                    <img src="assets/sabre.png" alt="Sabre Building" class="property-image">
+                </div>
+                <div class="property-content">
+                    <p class="property-location">Newark, DE</p>
+                    <h3>Sabre Building</h3>
+                    <p class="property-details">Professional office building at 4051 Ogletown-Stanton Road. Convenient Newark location with excellent visibility and easy highway access.</p>
+                    <p class="property-broker">Represented by <strong>Cindy Fleming</strong>, JLL</p>
+                    <div class="property-links">
+                        <a href="https://www.loopnet.com/Listing/4051-Ogletown-Stanton-Rd-Newark-DE/34775635/" target="_blank" class="property-link">LoopNet</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="affiliates">
+        <div class="affiliates-header">
+            <p class="section-label">Our Family of Companies</p>
+            <h2>Affiliated Businesses</h2>
+        </div>
+        <div class="affiliate-grid">
+            <div class="affiliate-card">
+                <div class="affiliate-image-wrapper">
+                    <img src="assets/legalgroundscafe.jpg" alt="Legal Grounds Cafe" class="affiliate-image">
+                </div>
+                <div class="affiliate-content">
+                    <h3>Legal Grounds Cafe</h3>
+                    <p>A welcoming cafe serving coffee, food, and community in the heart of Wilmington.</p>
+                    <a href="https://www.legalgroundscafe.com" target="_blank" class="affiliate-link">Visit Website</a>
+                </div>
+            </div>
+
+            <div class="affiliate-card">
+                <div class="affiliate-image-wrapper">
+                    <img src="assets/dplaw.webp" alt="Doroshow, Pasquale, Krawitz & Bhaya" class="affiliate-image">
+                </div>
+                <div class="affiliate-content">
+                    <h3>Doroshow, Pasquale, Krawitz & Bhaya</h3>
+                    <p>A Delaware law firm representing injured people since 1978.</p>
+                    <a href="https://www.dplaw.com" target="_blank" class="affiliate-link">Visit Website</a>
+                </div>
+            </div>
+
+            <div class="affiliate-card">
+                <div class="affiliate-image-wrapper othcc-card">
+                    <h4>Old Town Hall<br>Construction Company</h4>
+                    <div class="othcc-services">
+                        <span>Property Management</span>
+                        <span>Maintenance</span>
+                        <span>Construction</span>
+                    </div>
+                </div>
+                <div class="affiliate-content">
+                    <h3>Old Town Hall Construction Company</h3>
+                    <p>Full-service property management, maintenance, and construction for our portfolio.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <p class="section-label">Get in Touch</p>
+            <h2>Let's Talk About Your Space Needs</h2>
+            <p>Whether you're looking for 1,000 square feet or 50,000 square feet, we'd be glad to walk you through what's available.</p>
+            <a href="tel:302-998-0100" class="contact-phone">302.998.0100</a>
+            <p class="contact-address">
+                1202 Kirkwood Highway<br>
+                Wilmington, Delaware 19806
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">&copy; 2025 Old Town Hall Associates, LLC. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
